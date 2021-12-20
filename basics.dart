@@ -1,0 +1,29 @@
+// Some basics of Dart.
+
+class Person {
+  String name = 'Max';
+  int age =  30; // varible inside a class -> property
+}
+
+double addNumber(double num1, double num2) {
+  // print(num1 + num2);
+  return num1 + num2;
+}
+
+void main() {
+  
+  var p1 = Person(); // creates a new instance of class Person();
+  var p2 = Person();
+  print(p1);
+  print(p1.age);
+  p2.name = 'Karl';
+  print(p2.name);
+  
+  var test; // varible inside a function -> just a variable 
+  
+  var firstResult = addNumber(1.1, 2.2); // here we use 'var' because dart knows that this always will be double value.
+  double secondResult; // here dart doesn't knows what type it is. So if we want it to be a double value, we use type 'double'
+  
+  print(firstResult);
+  print('Hello!');
+}
