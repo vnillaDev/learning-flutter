@@ -1,8 +1,11 @@
 class Car {
   String? brand;
   int? buildYear;
-  
-  Car({this.brand, this.buildYear});
+
+  Car(
+      {this.brand,
+      this.buildYear}); // named arguments, good for constructors with alot arguments
+
   /*
   Car({String? brand, int? buildYear}) { // constructor with body => Geringverdiener-Variante
     this.brand = brand;
@@ -26,10 +29,14 @@ double addNumber(double num1, double num2) {
 */
 
 void main() {
-  var car2 = Car(brand: 'Porsche');
-  var car1 = Car(buildYear: 2001);
+  var car2 = Car(brand: 'Porsche', buildYear: 2002);
+  var car1 = Car(buildYear: 2001, brand: 'Audi');
   print(car2.brand);
+  print(car2.buildYear);
+
+  print(car1.brand);
   print(car1.buildYear);
+
 /*
   var p1 = Person(); // creates a new instance of class Person();
   var p2 = Person();
