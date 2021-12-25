@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/result.dart';
 
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 /*
 void main() {
@@ -22,21 +23,65 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var _questionIndex = 0;
+  final _questions = const [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': [
+        {'text': 'Cat', 'score': 10},
+        {'text': 'Dog', 'score': 5},
+        {'text': 'Rabbit', 'score': 3},
+        {'text': 'Lion', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'How is your favorite Instructor?',
+      'answers': [
+        {'text': 'Max', 'score': 0},
+        {'text': 'Maximilian', 'score': 0},
+        {'text': 'Academind', 'score': 0},
+        {'text': 'Schwarzmüller', 'score': 0},
+      ],
+    },
+  ];
 
-  void _answerQuestions() {
+  var _questionIndex = 0;
+  var _totalScore = 0;
+
+  void _resetQuiz() {
+    // rebuilds widget tree; resets everything
     setState(() {
-      _questionIndex++;
+      _questionIndex = 0;
+      _totalScore = 0;
     });
+  }
+
+  void _answerQuestion(int score) {
+    _totalScore += score;
+
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+
+    if (_questionIndex < _questions.length) {
+      // ignore: avoid_print
+      print('We have more questions!');
+    }
+    // ignore: avoid_print
     print(_questionIndex);
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What\'s your favorite color?',
-      'What\'s favorite food?',
-    ];
+    // questions = []; this does not work if questions is const
 
     return MaterialApp(
       // ctrl + 'space' for code suggestions
@@ -44,24 +89,25 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('My first App'),
         ),
-        body: Column(
-          children: [
-            Question(
-              questions[_questionIndex],
-            ),
-            Answer(
-                _answerQuestions), // forwarding a pointer to the function _answerQuesitons
-            Answer(_answerQuestions),
-            Answer(_answerQuestions),
-          ],
-        ),
+        body: _questionIndex <
+                _questions
+                    .length // ternary expression '_quesitonIndex < _question.length ? Quiz() : Result()'
+            ? Quiz(
+                answerQuestions: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
+            : Result(
+                _totalScore,
+                _resetQuiz,
+              ),
       ),
     );
   }
 }
 
-// **Tabs**
-// Video Timestamp: https://youtu.be/x0uinJvhNxI?t=13116
-// Dartpad
-// Flutter Repo auf GitHub
+// **Important Tabs**
+// Video Timestamp: https://youtu.be/x0uinJvhNxI?t
+// Dartpad: https://dartpad.dev/?
+// GitHub: https://github.com/vnillaDev/learning-flutter
 // Markdown Docomentation
