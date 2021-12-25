@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import './question.dart';
+import './answer.dart';
+
 /*
 void main() {
   runApp(MyApp());
@@ -14,18 +17,18 @@ class MyApp extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
 
-  void answerQuestions() {
+  void _answerQuestions() {
     setState(() {
-      questionIndex++;
+      _questionIndex++;
     });
-    print(questionIndex);
+    print(_questionIndex);
   }
 
   @override
@@ -43,25 +46,13 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(
-              questions[questionIndex],
+            Question(
+              questions[_questionIndex],
             ),
-            ElevatedButton(
-              child: const Text('Answer 1'),
-              onPressed: answerQuestions, // passing a Pointer to onPressed
-            ),
-            ElevatedButton(
-              child: const Text('Answer 2'),
-              onPressed: () =>
-                  print('answer 2 chosen!'), // single-line anonymous functions
-            ),
-            ElevatedButton(
-              child: const Text('Answer 3'),
-              onPressed: () {
-                // anonymous function with more than one line
-                print('answer 3 chosen!');
-              },
-            ),
+            Answer(
+                _answerQuestions), // forwarding a pointer to the function _answerQuesitons
+            Answer(_answerQuestions),
+            Answer(_answerQuestions),
           ],
         ),
       ),
